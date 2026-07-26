@@ -2,69 +2,141 @@
 @import "tailwindcss";
 
 :root {
-  --bg-primary: #030303;
-  --bg-secondary: #0a0a0a;
-  --accent-cyan: #00f0ff;
-  --accent-purple: #8a2be2;
-  --accent-pink: #ff007f;
+  --bg-primary: #0b0f19;
+  --bg-secondary: #151d30;
+  --accent-primary: #6366f1;
+  --accent-secondary: #0ea5e9;
+  --accent-tertiary: #d946ef;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-light: rgba(255, 255, 255, 0.05);
 }
 
 body {
   font-family: 'Outfit', sans-serif;
   background-color: var(--bg-primary);
-  color: #ffffff;
+  color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-}
-
-/* Glassmorphism & Neon utilities */
-.glass-panel {
-  background: rgba(10, 10, 10, 0.4);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-  position: relative;
-  overflow: hidden;
-}
-
-.glass-panel::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-.hover-glow:hover {
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.15), 0 0 40px rgba(138, 43, 226, 0.15);
-  border-color: rgba(0, 240, 255, 0.3);
-}
-
-.text-gradient-neon {
-  background: linear-gradient(to right, #00f0ff, #8a2be2, #ff007f);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: hue-shift 10s infinite linear;
-}
-
-@keyframes hue-shift {
-  0% { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(360deg); }
-}
-
-.bg-grid-pattern {
-  background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0, transparent 50%), 
+    radial-gradient(at 50% 0%, rgba(14, 165, 233, 0.08) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, rgba(217, 70, 239, 0.1) 0, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* Claymorphism Core Utilities - Dark Mode */
+.clay-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  box-shadow: 
+    10px 10px 25px rgba(2, 4, 8, 0.5),
+    inset -6px -6px 12px rgba(2, 4, 8, 0.35),
+    inset 6px 6px 12px rgba(255, 255, 255, 0.04);
+}
+
+.clay-card-flat {
+  background: rgba(21, 29, 48, 0.7);
+  border: 1px solid var(--border-light);
+  box-shadow: 
+    6px 6px 16px rgba(2, 4, 8, 0.4),
+    inset -4px -4px 8px rgba(2, 4, 8, 0.25),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+}
+
+.clay-card-hover {
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.clay-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    14px 14px 32px rgba(2, 4, 8, 0.6),
+    inset -4px -4px 10px rgba(2, 4, 8, 0.25),
+    inset 4px 4px 10px rgba(255, 255, 255, 0.06);
+}
+
+/* Clay Buttons - Dark Mode */
+.clay-btn-primary {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0px 8px 18px rgba(79, 70, 229, 0.35),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.3),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.25);
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.clay-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0px 12px 24px rgba(79, 70, 229, 0.45),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.25),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.3);
+}
+.clay-btn-primary:active {
+  transform: translateY(1px);
+  box-shadow: 
+    0px 3px 6px rgba(79, 70, 229, 0.2),
+    inset 3px 3px 6px rgba(0, 0, 0, 0.35),
+    inset -3px -3px 6px rgba(255, 255, 255, 0.1);
+}
+
+.clay-btn-secondary {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+  box-shadow: 
+    0px 6px 14px rgba(2, 4, 8, 0.35),
+    inset -3px -3px 6px rgba(2, 4, 8, 0.2),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.04);
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.clay-btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0px 10px 20px rgba(2, 4, 8, 0.42),
+    inset -2px -2px 4px rgba(2, 4, 8, 0.15),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.06);
+}
+.clay-btn-secondary:active {
+  transform: translateY(1px);
+  box-shadow: 
+    0px 2px 4px rgba(2, 4, 8, 0.2),
+    inset 3px 3px 6px rgba(2, 4, 8, 0.25),
+    inset -3px -3px 6px rgba(255, 255, 255, 0.02);
+}
+
+/* Clay Badges/Pills */
+.clay-badge {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  box-shadow: 
+    3px 3px 8px rgba(2, 4, 8, 0.25),
+    inset -2px -2px 4px rgba(2, 4, 8, 0.1),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.04);
+}
+
+.clay-badge-colored {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(79, 70, 229, 0.2) 100%);
+  color: #818cf8;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    2px 2px 6px rgba(79, 70, 229, 0.2),
+    inset -2px -2px 4px rgba(79, 70, 229, 0.1),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.15);
+}
+
+/* Clay Inputs */
+.clay-input {
+  background: #0f1626;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  box-shadow: 
+    inset 4px 4px 8px rgba(2, 4, 8, 0.5),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.02);
+  transition: all 0.2s ease;
 }
 
 html {
@@ -72,15 +144,16 @@ html {
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: #222;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid var(--bg-primary);
+  border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #444;
+  background: rgba(255, 255, 255, 0.2);
 }
