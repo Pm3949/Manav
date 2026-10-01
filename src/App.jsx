@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Tilt from 'react-parallax-tilt';
 import {
-  Github, Linkedin, Mail, ExternalLink, Code2, Award,
-  GraduationCap, Zap, Cpu, LayoutGrid, Bot, Train, Brain, BookOpen, Users
+  Github, Linkedin, Mail, ExternalLink, Code2, Award, Briefcase,
+  GraduationCap, Zap, Cpu, LayoutGrid, Bot, Train, Brain, BookOpen, Users, Download, Trophy, Star, Menu, X
 } from 'lucide-react';
 
 /* ═══════════════════════════════════════════════════════════
@@ -11,35 +12,34 @@ import {
 const majorProjects = [
   {
     name: "BlinkBot",
-    description: "Enterprise-grade AI assistant platform where teams deploy custom RAG agents trained on their own documents. Features Multi-Agent Orchestration with dynamic intent routing, WebSocket streaming, and HyDE + Cross-Encoder reranking.",
+    description: "Enterprise-grade AI Agent builder platform using FastAPI and LangGraph, enabling the deployment of custom multi-agent networks and supervisor-delegated routing over private documents. Advanced RAG pipeline with pgvector, HyDE, and Cross-Encoder Reranking.",
     link: "https://github.com/Pm3949/BlinkBot",
     demo: "https://blinkbot.in",
-    tags: ["React 19", "FastAPI", "LangChain", "pgvector", "RAG"],
+    tags: ["React", "FastAPI", "LangGraph", "pgvector", "RAG"],
     icon: Bot
   },
   {
-    name: "HectoClash",
-    description: "Real-time multiplayer mental math game with live matchmaking during a 36-hour Hackfest, ranking 6th out of 25 teams. Leverages Socket.io for instantaneous gameplay synchronization.",
-    link: "https://github.com/Pm3949/HectoClash",
-    demo: "https://hectoclash-cuwf.onrender.com",
-    tags: ["React.js", "Node.js", "Socket.io", "MongoDB"],
-    icon: Brain
-  },
-  {
-    name: "AcadMate",
-    description: "Centralized academic platform to streamline access to study materials. Integrated secure OneDrive cloud storage utilizing OAuth 2.0 PKCE to enable authenticated file management.",
-    link: "https://github.com/Pm3949/AcadMate",
-    demo: "https://acadmate-vx8s.onrender.com",
-    tags: ["React.js", "Express.js", "OAuth PKCE"],
-    icon: BookOpen
-  },
-  {
     name: "SubjectHub",
-    description: "Full-stack academic collaboration platform with real-time chat channels, role-based access, announcements, and live notifications powered by Socket.IO.",
+    description: "Full-stack academic collaboration platform using Next.js, Express.js, and MongoDB for subject-centric communication. Real-time chat, threaded discussions, notifications, and presence tracking using Socket.IO.",
     link: "https://github.com/Pm3949/SubjectHub",
     demo: "https://subject-hub-qfy8.vercel.app/",
     tags: ["Next.js", "TypeScript", "MongoDB", "Socket.IO"],
     icon: Users
+  },
+  {
+    name: "xv6-riscv: Custom System Call Extensions",
+    description: "Extended the xv6-riscv kernel with custom system calls for IPC, process management, synchronization, signaling, and system monitoring. Engineered a blocking IPC mechanism using per-process kernel mailboxes.",
+    link: "https://github.com/Pm3949/G27_Project1_xv6CustomizeSystemCalls",
+    tags: ["C", "RISC-V", "Operating Systems"],
+    icon: Cpu
+  },
+  {
+    name: "HectoClash",
+    description: "Real-time multiplayer mental math game inspired by the Hectoc puzzle format. Live matchmaking and gameplay logic enabling time-based competitive challenges.",
+    link: "https://github.com/Pm3949/HectoClash",
+    demo: "https://hectoclash-cuwf.onrender.com",
+    tags: ["React.js", "Node.js", "Socket.io", "MongoDB"],
+    icon: Brain
   }
 ];
 
@@ -84,15 +84,69 @@ const otherProjects = [
   { name: "yap", description: "Modern real-time chat web application focused on seamless communication and clean UX.", link: "https://github.com/Pm3949", demo: "https://yap-tau-nine.vercel.app/", tags: ["JavaScript"] },
 ];
 
-const skills = [
-  "C++", "JavaScript", "TypeScript", "Python",
-  "React.js", "Next.js", "Node.js", "Express.js", "FastAPI",
-  "MongoDB", "PostgreSQL", "Supabase", "Git"
+
+const experience = [
+  {
+    role: "TechnoRise AI Engineer Intern",
+    company: "Tech Mahindra",
+    location: "Hyderabad, India",
+    duration: "May 2026 – July 2026",
+    points: [
+      "Architected an on-premise AI inference pipeline for Project Orion, enabling secure, localized deployment of Large Language Models (e.g., Qwen 2.5) for enterprise applications.",
+      "Evaluated high-throughput frameworks and deployed NVIDIA NIM for production serving, alongside a custom FastAPI-based gateway using vLLM for dynamic GPU resource management.",
+      "Optimized hardware efficiency by engineering concurrency management, handling cold starts, and resolving FlashInfer environment dependencies without relying on rigid containerization.",
+      "Integrated local inference servers into RAG pipelines and multi-agent frameworks (CrewAI) to drive complex, production-ready workflows."
+    ]
+  }
 ];
 
+const achievements = [
+  "Secured an All India Rank of 8,485 among 1,50,000 candidates in the JEE Advanced 2022 examination.",
+  "Secured an All India Rank of 9,294 among 12 million candidates in the JEE Mains 2022 examination.",
+  "Achieved a global rank of 1328 in LeetCode Weekly Contest 466 among thousands of participants.",
+  "Solved over 900 DSA problems across platforms including LeetCode, Codeforces, and CodeChef."
+];
+
+const technicalSkills = [
+  { category: "Languages", skills: ["C++", "C", "Python", "JavaScript", "TypeScript", "SQL"] },
+  { category: "Frontend", skills: ["React.js", "Next.js", "Tailwind CSS", "Vite", "Redux", "Zustand", "TanStack Query"] },
+  { category: "Backend", skills: ["FastAPI", "Node.js", "Express.js", "REST APIs", "WebSockets", "Socket.io"] },
+  { category: "AI/ML & Agents", skills: ["LangChain", "LangGraph", "CrewAI", "RAG", "Agentic AI", "Multi-Agent Systems", "Tool Calling", "Function Calling", "LLM Inference"] },
+  { category: "RAG & AI Systems", skills: ["pgvector", "Semantic Search", "HyDE", "Cross-Encoder Reranking", "Vector Databases", "Prompt Engineering"] },
+  { category: "Databases", skills: ["PostgreSQL", "MongoDB", "Supabase", "pgvector", "SQL"] },
+  { category: "Authentication & APIs", skills: ["JWT", "OAuth 2.0", "OAuth PKCE", "RBAC", "Row Level Security (RLS)", "API Integration", "Webhooks"] },
+  { category: "AI Infrastructure", skills: ["vLLM", "NVIDIA NIM", "Ollama", "OpenAI API", "Groq", "Google TTS", "Gemini API"] },
+  { category: "Systems & Tools", skills: ["Linux", "xv6-riscv", "Git", "GitHub", "Postman", "Docker"] }
+];
+
+const githubRepos = [
+  { name: "BlinkBot", language: "JavaScript", stars: 0 },
+  { name: "Manav", language: "JavaScript", stars: 0, description: "Portfolio" },
+  { name: "Handwritten", language: "JavaScript", stars: 0 },
+  { name: "opensre", language: "Python", stars: 0, description: "Build your own AI SRE agents. The open source toolkit for the AI era." },
+  { name: "the_cake_gallery", language: "TypeScript", stars: 0 },
+  { name: "Weather-App", language: "HTML", stars: 0 },
+  { name: "Memory-Matching-Game", language: "JavaScript", stars: 0 },
+  { name: "Water-Soution", language: "JavaScript", stars: 0 },
+  { name: "yap", language: "TypeScript", stars: 0 },
+  { name: "SubjectHub", language: "TypeScript", stars: 0 },
+  { name: "Campus-Event-Management-and-Ticketing-System", language: "JavaScript", stars: 0 },
+  { name: "G27_Project1_xv6CustomizeSystemCalls", language: "C", stars: 1 },
+  { name: "EY", language: "JavaScript", stars: 0 },
+  { name: "Hooman_Labs_Manav", language: "TypeScript", stars: 0 },
+  { name: "manav_AI_CF", language: "", stars: 0 },
+  { name: "AcadMate_admin", language: "JavaScript", stars: 0 },
+  { name: "EY-Techathon", language: "HTML", stars: 0 },
+  { name: "recruiter", language: "JavaScript", stars: 0 },
+  { name: "AcadMate", language: "JavaScript", stars: 0 },
+  { name: "HectoClash", language: "JavaScript", stars: 0 },
+  { name: "StudyMate_AI-assistant", language: "JavaScript", stars: 0 },
+  { name: "RailRunner", language: "HTML", stars: 0 }
+];
+
+
 const education = [
-  { degree: "B.Tech in ECE + CSE", institution: "IIT (ISM), Dhanbad", duration: "Oct 2022 – June 2027", details: "CGPA: 8.77 / 10.0" },
-  { degree: "Senior Secondary", institution: "Pramukh Swami Vidhyalay", duration: "June 2021 – March 2022", details: "Percentage: 85.67%" }
+  { degree: "B.Tech in Electronics and Communication Engineering & B.Tech in Computer Science and Engineering", institution: "Indian Institute of Technology (Indian School of Mines), Dhanbad", duration: "Oct 2022 – June 2027", details: "CGPA: 8.49 / 10.0" }
 ];
 
 /* ═══════════════════════════════════════════════════════════
@@ -124,8 +178,9 @@ const ProjectCard = ({ project, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
-      className="clay-card clay-card-hover rounded-[24px] p-8 relative flex flex-col justify-between h-full"
+      className="h-full"
     >
+      <Tilt tiltMaxAngleX={10} tiltMaxAngleY={10} scale={1.02} transitionSpeed={2000} className="clay-card clay-card-hover rounded-[24px] p-6 md:p-8 relative flex flex-col justify-between h-full">
       <div>
         <div className="flex justify-between items-start mb-6">
           <div className="p-3.5 rounded-2xl clay-input text-indigo-400">
@@ -168,6 +223,7 @@ const ProjectCard = ({ project, index }) => {
           </span>
         ))}
       </div>
+          </Tilt>
     </motion.div>
   );
 };
@@ -177,6 +233,7 @@ const ProjectCard = ({ project, index }) => {
 ═══════════════════════════════════════════════════════════ */
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Intersection Observer to track active section for sticky nav
   useEffect(() => {
@@ -202,28 +259,70 @@ export default function App() {
     <div className="min-h-screen bg-[#0b0f19] text-slate-200 selection:bg-indigo-500 selection:text-white font-sans relative">
       
       {/* ── STICKY NAV ── */}
-      <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-5xl z-50 rounded-2xl bg-[#151d30]/75 backdrop-blur-md border border-white/5 clay-card-flat px-6 py-3 flex justify-between items-center">
-        <a href="#home" className="text-base sm:text-lg font-black tracking-tighter text-slate-100 hover:opacity-85 transition-opacity">
-          PATEL<span className="text-indigo-400 font-bold">MANAV</span>
-        </a>
-        <div className="flex gap-1.5 sm:gap-3 md:gap-5 text-xs font-bold tracking-wider uppercase items-center">
-          {['home', 'projects', 'about', 'contact'].map(id => {
-            const isActive = activeSection === id;
-            return (
-              <a 
-                key={id} 
-                href={`#${id}`} 
-                className={`px-3.5 py-2 rounded-xl transition-all duration-200 text-[10px] sm:text-xs font-bold ${
-                  isActive 
-                    ? 'clay-btn-primary text-white scale-105' 
-                    : 'text-slate-400 hover:text-indigo-400'
-                }`}
-              >
-                {id}
-              </a>
-            );
-          })}
+      <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] sm:w-[92%] max-w-5xl z-50 rounded-2xl bg-[#151d30]/85 backdrop-blur-lg border border-white/10 clay-card-flat px-4 md:px-6 py-3 transition-all duration-300">
+        <div className="flex justify-between items-center w-full">
+          <a href="#home" className="text-base md:text-lg font-black tracking-tighter text-slate-100 hover:opacity-85 transition-opacity">
+            PATEL<span className="text-indigo-400 font-bold">MANAV</span>
+          </a>
+          
+          {/* Desktop Nav */}
+          <div className="hidden md:flex gap-2 sm:gap-3 md:gap-5 text-xs font-bold tracking-wider uppercase items-center">
+            {['home', 'experience', 'projects', 'achievements', 'github', 'about', 'contact'].map(id => {
+              const isActive = activeSection === id;
+              return (
+                <a 
+                  key={id} 
+                  href={`#${id}`} 
+                  className={`px-3.5 py-2 rounded-xl transition-all duration-200 text-[10px] sm:text-xs font-bold ${
+                    isActive 
+                      ? 'clay-btn-primary text-white scale-105' 
+                      : 'text-slate-400 hover:text-indigo-400'
+                  }`}
+                >
+                  {id}
+                </a>
+              );
+            })}
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <button 
+            className="md:hidden p-2 text-slate-300 hover:text-white focus:outline-none"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
+
+        {/* Mobile Nav Dropdown */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div 
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="md:hidden flex flex-col gap-2 mt-4 pb-2 overflow-hidden"
+            >
+              {['home', 'experience', 'projects', 'achievements', 'github', 'about', 'contact'].map(id => {
+                const isActive = activeSection === id;
+                return (
+                  <a 
+                    key={id} 
+                    href={`#${id}`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`px-4 py-3 rounded-xl transition-all duration-200 text-xs font-bold tracking-wider uppercase ${
+                      isActive 
+                        ? 'clay-btn-primary text-white' 
+                        : 'text-slate-400 hover:bg-white/5 hover:text-indigo-400'
+                    }`}
+                  >
+                    {id}
+                  </a>
+                );
+              })}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       <main className="max-w-5xl mx-auto px-6 pt-28">
@@ -245,7 +344,7 @@ export default function App() {
               <Zap size={14} className="text-indigo-300" /> Full-Stack Engineer
             </motion.div>
 
-            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-[1.0] text-slate-100 mb-8">
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black tracking-tight leading-[1.1] sm:leading-[1.0] text-slate-100 mb-8 break-words">
               BUILDING NEXT-GEN <br className="hidden sm:block" />
               <span className="text-indigo-400">DIGITAL EXPERIENCES.</span>
             </h1>
@@ -254,7 +353,7 @@ export default function App() {
               I am a B.Tech student at IIT ISM Dhanbad specializing in scalable AI platforms, modern web architecture, and real-time multiplayer systems.
             </p>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-3 sm:gap-4">
               <motion.a 
                 href="#projects"
                 whileHover={{ scale: 1.05 }}
@@ -271,8 +370,54 @@ export default function App() {
               >
                 Let's Talk
               </motion.a>
+              <motion.a 
+                href="/Resume.pdf"
+                download="Manav_Patel_Resume.pdf"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 rounded-2xl clay-btn-secondary font-bold flex items-center gap-2 justify-center cursor-pointer"
+              >
+                <Download size={20} /> Resume
+              </motion.a>
             </div>
           </motion.div>
+        </section>
+
+        
+        {/* ══ EXPERIENCE ══ */}
+        <section id="experience" className="py-24 border-t border-slate-800/50">
+          <SectionHeading icon={Briefcase}>EXPERIENCE</SectionHeading>
+          
+          <div className="space-y-12">
+            {experience.map((job, index) => (
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="p-6 md:p-10 rounded-[24px] clay-card"
+              >
+                <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
+                  <div>
+                    <h3 className="text-2xl font-bold text-slate-100">{job.role}</h3>
+                    <p className="text-indigo-400 font-semibold text-lg">{job.company}</p>
+                  </div>
+                  <div className="text-left md:text-right mt-2 md:mt-0">
+                    <p className="text-slate-300 font-medium">{job.duration}</p>
+                    <p className="text-slate-500 text-sm">{job.location}</p>
+                  </div>
+                </div>
+                <ul className="space-y-3">
+                  {job.points.map((point, i) => (
+                    <li key={i} className="flex gap-3 text-slate-300 leading-relaxed text-sm md:text-base">
+                      <span className="text-indigo-400 mt-1.5 opacity-60">▹</span> {point}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
         </section>
 
         {/* ══ PROJECTS ══ */}
@@ -283,7 +428,7 @@ export default function App() {
             <h3 className="text-sm font-extrabold text-slate-400 mb-8 uppercase tracking-widest flex items-center gap-3">
               <Bot size={18} className="text-indigo-400" /> Flagship Projects
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
               {majorProjects.map((project, index) => (
                 <ProjectCard key={project.name} project={project} index={index} />
               ))}
@@ -294,7 +439,7 @@ export default function App() {
             <h3 className="text-sm font-extrabold text-slate-400 mb-8 uppercase tracking-widest flex items-center gap-3">
               <Code2 size={18} className="text-indigo-400" /> Full-Stack Builds
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
               {midProjects.map((project, index) => (
                 <ProjectCard key={project.name} project={project} index={index} />
               ))}
@@ -305,7 +450,7 @@ export default function App() {
             <h3 className="text-sm font-extrabold text-slate-400 mb-8 uppercase tracking-widest flex items-center gap-3">
               <Cpu size={18} className="text-indigo-400" /> Core CS & AI Systems
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
               {coreProjects.map((project, index) => (
                 <ProjectCard key={project.name} project={project} index={index} />
               ))}
@@ -316,12 +461,13 @@ export default function App() {
             <h3 className="text-sm font-extrabold text-slate-400 mb-8 uppercase tracking-widest flex items-center gap-3">
               <LayoutGrid size={18} className="text-slate-400" /> Other Noteworthy Repos
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               {otherProjects.map((project, index) => (
                 <motion.div key={project.name}
                   initial={{ opacity:0, y:15 }} whileInView={{ opacity:1, y:0 }}
                   viewport={{ once:true, margin: "-50px" }} transition={{ delay: index * 0.05 }}
-                  className="clay-card clay-card-hover rounded-[20px] p-5 flex flex-col group h-full justify-between">
+                  className="h-full">
+                  <Tilt tiltMaxAngleX={15} tiltMaxAngleY={15} scale={1.05} transitionSpeed={2000} className="clay-card clay-card-hover rounded-[20px] p-5 flex flex-col group h-full justify-between">
                   <div>
                     <div className="flex justify-between items-start mb-3">
                       <h4 className="text-sm font-bold text-slate-200 group-hover:text-indigo-400 transition-colors">{project.name}</h4>
@@ -339,33 +485,107 @@ export default function App() {
                       <span key={tag} className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-slate-950/20 clay-badge text-slate-400 uppercase tracking-wider">{tag}</span>
                     ))}
                   </div>
+                  </Tilt>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
 
+        
+        {/* ══ ACHIEVEMENTS ══ */}
+        <section id="achievements" className="py-24 border-t border-slate-800/50">
+          <SectionHeading icon={Trophy}>ACHIEVEMENTS</SectionHeading>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {achievements.map((achievement, index) => (
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+                className="p-6 rounded-2xl clay-card clay-card-hover flex gap-4 items-start"
+              >
+                <div className="p-2.5 rounded-xl clay-input text-yellow-400 shrink-0 mt-1">
+                  <Trophy size={20} />
+                </div>
+                <p className="text-slate-200 leading-relaxed text-sm">{achievement}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* ══ GITHUB ══ */}
+        <section id="github" className="py-24 border-t border-slate-800/50">
+          <SectionHeading icon={Github}>GITHUB REPOSITORIES</SectionHeading>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {githubRepos.filter(r => r.name !== 'Manav').map((repo, index) => (
+              <motion.a 
+                href={`https://github.com/Pm3949/${repo.name}`}
+                target="_blank" rel="noreferrer"
+                key={repo.name}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: (index % 6) * 0.05 }}
+                className="block h-full"
+              >
+                <Tilt tiltMaxAngleX={12} tiltMaxAngleY={12} scale={1.03} transitionSpeed={2000} className="p-6 rounded-2xl clay-card clay-card-hover flex flex-col group h-full">
+                <div className="flex justify-between items-start mb-4">
+                  <h4 className="text-base font-bold text-slate-100 group-hover:text-indigo-400 transition-colors break-words pr-2">
+                    {repo.name}
+                  </h4>
+                  {repo.stars > 0 && (
+                    <span className="flex items-center gap-1 text-xs font-bold text-slate-400 bg-slate-900/50 px-2 py-1 rounded-full shrink-0">
+                      <Star size={12} className="text-yellow-400" fill="currentColor" /> {repo.stars}
+                    </span>
+                  )}
+                </div>
+                {repo.description && (
+                  <p className="text-slate-400 text-xs mb-4 line-clamp-2">
+                    {repo.description}
+                  </p>
+                )}
+                {repo.language && (
+                  <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-slate-900/50 text-slate-300">
+                    {repo.language}
+                  </span>
+                )}
+                </Tilt>
+              </motion.a>
+            ))}
+          </div>
+        </section>
+
+        
         {/* ══ ABOUT ══ */}
         <section id="about" className="py-24 border-t border-slate-800/50">
           <SectionHeading icon={Cpu}>ABOUT & SKILLS</SectionHeading>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
             {/* Tech Stack */}
             <div>
               <h3 className="text-lg font-bold text-slate-100 mb-6">Technical Arsenal</h3>
-              <div className="flex flex-wrap gap-3">
-                {skills.map((skill, index) => (
-                  <motion.span 
-                    key={skill}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
+              <div className="space-y-6">
+                {technicalSkills.map((categoryGroup, index) => (
+                  <motion.div 
+                    key={categoryGroup.category}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: index * 0.03 }}
-                    className="px-4 py-2.5 rounded-2xl text-sm font-bold text-slate-200 clay-badge hover:scale-105 transition-transform duration-200 cursor-default"
+                    transition={{ delay: index * 0.1 }}
                   >
-                    {skill}
-                  </motion.span>
-                ))}
+                    <h4 className="text-sm font-bold text-indigo-400 mb-3 uppercase tracking-wider">{categoryGroup.category}</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {categoryGroup.skills.map(skill => (
+                        <span key={skill} className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-200 clay-badge cursor-default">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  
+                </motion.div>
+              ))}
               </div>
             </div>
 
@@ -388,8 +608,9 @@ export default function App() {
                       <p className="text-slate-300 text-sm mb-2 font-medium">{item.institution} • {item.duration}</p>
                       <p className="text-slate-400 text-sm font-semibold">{item.details}</p>
                     </div>
-                  </motion.div>
-                ))}
+                  
+                </motion.div>
+              ))}
               </div>
             </div>
           </div>
@@ -401,7 +622,7 @@ export default function App() {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-[#151d30]/80 border border-white/5 clay-card rounded-[2.5rem] p-12 md:p-20 text-center"
+            className="bg-[#151d30]/80 border border-white/5 clay-card rounded-[2.5rem] p-8 sm:p-12 md:p-20 text-center mx-auto overflow-hidden"
           >
             <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-slate-100">
               LET'S TALK.
@@ -414,7 +635,7 @@ export default function App() {
                 href="mailto:manavpatel0767@gmail.com"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 rounded-2xl clay-btn-primary font-bold flex items-center gap-3 cursor-pointer"
+                className="px-4 sm:px-8 py-4 rounded-2xl clay-btn-primary font-bold flex items-center gap-3 cursor-pointer text-sm sm:text-base w-full sm:w-auto justify-center"
               >
                 <Mail size={20} /> manavpatel0767@gmail.com
               </motion.a>
@@ -422,7 +643,7 @@ export default function App() {
                 href="https://github.com/Pm3949" target="_blank" rel="noreferrer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-6 py-4 rounded-2xl clay-btn-secondary font-bold flex items-center gap-3 cursor-pointer"
+                className="px-4 sm:px-6 py-4 rounded-2xl clay-btn-secondary font-bold flex items-center gap-3 cursor-pointer text-sm sm:text-base w-full sm:w-auto justify-center"
               >
                 <Github size={20} /> GitHub
               </motion.a>
@@ -430,7 +651,7 @@ export default function App() {
                 href="https://www.linkedin.com/in/manavpatel07" target="_blank" rel="noreferrer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-6 py-4 rounded-2xl clay-btn-secondary font-bold flex items-center gap-3 cursor-pointer"
+                className="px-4 sm:px-6 py-4 rounded-2xl clay-btn-secondary font-bold flex items-center gap-3 cursor-pointer text-sm sm:text-base w-full sm:w-auto justify-center"
               >
                 <Linkedin size={20} /> LinkedIn
               </motion.a>
@@ -440,11 +661,11 @@ export default function App() {
         
       </main>
 
-      <footer className="py-12 text-center border-t border-slate-800/50 mt-16">
+      {/* <footer className="py-12 text-center border-t border-slate-800/50 mt-16">
         <p className="text-xs text-slate-500 font-bold uppercase tracking-widest">
           © {new Date().getFullYear()} Patel Manav // Engineered with React & Framer Motion
         </p>
-      </footer>
+      </footer> */}
     </div>
   );
 }
