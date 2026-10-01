@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
 import {
@@ -228,6 +228,111 @@ const ProjectCard = ({ project, index }) => {
   );
 };
 
+
+/* ═══════════════════════════════════════════════════════════
+   FLOATING SKILLS — Truly Random Positions & Physics
+═══════════════════════════════════════════════════════════ */
+const heroSkills = [
+  { label: "C++",        color: "#38bdf8" },
+  { label: "Python",     color: "#fde047" },
+  { label: "React.js",   color: "#22d3ee" },
+  { label: "TypeScript",  color: "#60a5fa" },
+  { label: "Node.js",    color: "#4ade80" },
+  { label: "FastAPI",    color: "#34d399" },
+  { label: "Next.js",    color: "#e2e8f0" },
+  { label: "LangGraph",  color: "#c084fc" },
+  { label: "AI/ML",      color: "#f472b6" },
+  { label: "900+ DSA",   color: "#fbbf24" },
+  { label: "RAG",        color: "#a78bfa" },
+  { label: "IIT ISM",    color: "#818cf8" },
+];
+
+function FloatingSkills() {
+  const containerRef = useRef(null);
+  
+  // Generate random positions ONCE using useMemo with seed-like logic
+  // Each chip gets: angle (spread around circle), radius (distance from center),
+  // float amplitude, float speed, float phase offset, drift direction
+  const chips = useMemo(() => {
+    const generated = [];
+    const count = heroSkills.length;
+    
+    // Use golden angle distribution for organic spacing
+    const goldenAngle = 137.508; // degrees
+    
+    for (let i = 0; i < count; i++) {
+      const skill = heroSkills[i];
+      
+      // Golden angle spiral + jitter for organic feel
+      const baseAngle = (i * goldenAngle) % 360;
+      const angleJitter = (Math.sin(i * 7.3) * 20); // deterministic jitter
+      const angle = baseAngle + angleJitter;
+      const rad = (angle - 90) * (Math.PI / 180);
+      
+      // Vary radius so chips aren't all on same ring (48-58% from center)
+      const radiusBase = 48 + (Math.cos(i * 3.7) + 1) * 5;
+      
+      const x = 50 + radiusBase * Math.cos(rad);
+      const y = 50 + radiusBase * Math.sin(rad);
+      
+      // Each chip gets unique animation params
+      const floatDuration = 3 + (Math.sin(i * 2.1) + 1) * 1.5;         // 3s - 6s
+      const floatAmplitude = 4 + (Math.cos(i * 4.3) + 1) * 4;          // 4px - 12px
+      const driftX = (Math.sin(i * 5.7)) * 6;                           // -6px to 6px horizontal drift
+      const phaseOffset = (i / count) * -floatDuration;                   // stagger start
+      const enterDelay = 0.6 + i * 0.12;                                 // sequential pop-in
+      
+      generated.push({
+        ...skill,
+        x: `${Math.max(2, Math.min(98, x))}%`,
+        y: `${Math.max(2, Math.min(98, y))}%`,
+        floatDuration: `${floatDuration.toFixed(1)}s`,
+        floatAmplitude: `${floatAmplitude.toFixed(0)}px`,
+        driftX: `${driftX.toFixed(1)}px`,
+        phaseOffset: `${phaseOffset.toFixed(2)}s`,
+        enterDelay,
+      });
+    }
+    return generated;
+  }, []);
+
+  return (
+    <>
+      {chips.map((chip) => (
+        <motion.div
+          key={chip.label}
+          initial={{ opacity: 0, scale: 0, rotate: -10 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{
+            delay: chip.enterDelay,
+            duration: 0.6,
+            type: "spring",
+            stiffness: 200,
+            damping: 15,
+          }}
+          style={{
+            left: chip.x,
+            top: chip.y,
+            "--float-dur": chip.floatDuration,
+            "--float-amp": chip.floatAmplitude,
+            "--drift-x": chip.driftX,
+            "--phase": chip.phaseOffset,
+            borderColor: `${chip.color}33`,
+          }}
+          className="skill-chip absolute clay-card px-3 py-1.5 rounded-full z-30 whitespace-nowrap pointer-events-none select-none"
+        >
+          <span
+            className="text-[10px] sm:text-[11px] font-bold"
+            style={{ color: chip.color }}
+          >
+            {chip.label}
+          </span>
+        </motion.div>
+      ))}
+    </>
+  );
+}
+
 /* ═══════════════════════════════════════════════════════════
    MAIN APP
 ═══════════════════════════════════════════════════════════ */
@@ -341,16 +446,16 @@ export default function App() {
               transition={{ delay: 0.2 }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-[#151d30] text-xs font-bold text-indigo-300 clay-badge-colored mb-8"
             >
-              <Zap size={14} className="text-indigo-300" /> Full-Stack Engineer
+              <Zap size={14} className="text-indigo-300" /> Full-Stack Engineer · AI/ML
             </motion.div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black tracking-tight leading-[1.1] sm:leading-[1.0] text-slate-100 mb-8 break-words">
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-[1.1] sm:leading-[1.0] text-slate-100 mb-8 break-words">
               BUILDING NEXT-GEN <br className="hidden sm:block" />
               <span className="text-indigo-400">DIGITAL EXPERIENCES.</span>
             </h1>
 
             <p className="text-lg sm:text-xl md:text-2xl text-slate-300 mb-12 max-w-2xl font-light leading-relaxed">
-              I am a B.Tech student at IIT ISM Dhanbad specializing in scalable AI platforms, modern web architecture, and real-time multiplayer systems.
+              I'm <span className="text-slate-100 font-semibold">Patel Manav</span>, a B.Tech student at <span className="text-indigo-400 font-semibold">IIT ISM Dhanbad</span> specializing in scalable AI platforms, modern web architecture, and real-time systems.
             </p>
 
             <div className="flex flex-wrap gap-3 sm:gap-4">

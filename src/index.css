@@ -169,3 +169,46 @@ html {
 html {
     overflow-x: hidden;
 }
+
+
+
+
+
+/* ── Floating Skill Chips ── */
+@keyframes chip-orbit {
+  0% {
+    transform: translate(-50%, -50%) 
+               translateY(0) 
+               translateX(0);
+  }
+  25% {
+    transform: translate(-50%, -50%) 
+               translateY(calc(var(--float-amp, 6px) * -0.7)) 
+               translateX(calc(var(--drift-x, 3px) * 0.5));
+  }
+  50% {
+    transform: translate(-50%, -50%) 
+               translateY(calc(var(--float-amp, 6px) * -1)) 
+               translateX(var(--drift-x, 3px));
+  }
+  75% {
+    transform: translate(-50%, -50%) 
+               translateY(calc(var(--float-amp, 6px) * -0.4)) 
+               translateX(calc(var(--drift-x, 3px) * 0.8));
+  }
+  100% {
+    transform: translate(-50%, -50%) 
+               translateY(0) 
+               translateX(0);
+  }
+}
+
+.skill-chip {
+  animation: chip-orbit var(--float-dur, 4s) ease-in-out infinite;
+  animation-delay: var(--phase, 0s);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.35),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.15),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+}
